@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ProjectMIREA</string>
+    <string name="calendar">TODO</string>
+    <string name="floatingactionbar">TODO</string>
+    <string name="menu">TODO</string>
+    <string name="profile">TODO</string>
+    <string name="top_bar">TODO</string>
+    <string name="Задача">Задача выполнена</string>
+    <string name="Task">Введите задачу</string>
+</resources>
