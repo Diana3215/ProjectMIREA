@@ -148,6 +148,7 @@ public class CalendarActivity extends AppCompatActivity {
     private String formateTime(Calendar calendar){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
         return simpleDateFormat.format(calendar.getTime());
+
     }
 }
 
