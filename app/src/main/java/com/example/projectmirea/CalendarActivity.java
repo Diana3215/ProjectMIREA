@@ -61,7 +61,7 @@ public class CalendarActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showDateTimePickerDialog();
-                saveReminder();
+
             }
         });
 
@@ -82,37 +82,41 @@ public class CalendarActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DATE);
-        int hour = calendar.get(Calendar.HOUR);
-        int minutes = calendar.get(Calendar.MINUTE);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 Calendar selectedDate = Calendar.getInstance();
                 selectedDate.set(year, month, dayOfMonth);
+                showTimePickerDialog(selectedDate);
+
             }
         }, year, month, day);
         datePickerDialog.show();
+    }
+    private void showTimePickerDialog(final Calendar selectedDate){
+
+        int hour = selectedDate.get(Calendar.HOUR_OF_DAY);
+        int minute = selectedDate.get(Calendar.MINUTE);
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                Calendar selectedTime = Calendar.getInstance();
-                selectedTime.set(hour, minutes);
+                selectedDate.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                selectedDate.set(Calendar.MINUTE, minute);
+                saveReminder(selectedDate);
             }
-        }, hour, minutes, true);
+        }, hour, minute, true);
         timePickerDialog.show();
     }
 
-    private void saveReminder(){
+    private void saveReminder(Calendar selectedDate){
             SQLiteDatabase db = RCSQL.getWritableDatabase();
 
             String title = titleET.getText().toString().trim();
 
-            long selectedDateMillis = calendarView.getDate();
+            long selectedDateMillis = selectedDate.getTimeInMillis();
 
-            Calendar selectedDate = Calendar.getInstance();
-            selectedDate.setTimeInMillis(selectedDateMillis);
 
             String selectedDateStr = formatDate(selectedDateMillis);
 
