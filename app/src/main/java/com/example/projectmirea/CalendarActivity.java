@@ -111,11 +111,14 @@ public class CalendarActivity extends AppCompatActivity {
 
             long selectedDateMillis = calendarView.getDate();
 
-            String selectedDate = formatDate(selectedDateMillis);
+            Calendar selectedDate = Calendar.getInstance();
+            selectedDate.setTimeInMillis(selectedDateMillis);
+
+            String selectedDateStr = formatDate(selectedDateMillis);
 
             ContentValues values = new ContentValues();
             values.put(ReminderContract.ReminderEntry.COLUMN_TITLE, title);
-            values.put(ReminderContract.ReminderEntry.COLUMN_DATE, selectedDate);
+            values.put(ReminderContract.ReminderEntry.COLUMN_DATE, selectedDateStr);
 
             long newRowId = db.insert(ReminderContract.ReminderEntry.TABLE_NAME, null, values);
 
@@ -123,7 +126,8 @@ public class CalendarActivity extends AppCompatActivity {
                 Toast.makeText(this, "Ошибка при сохранении напоминания", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "Напоминание сохранено", Toast.LENGTH_SHORT).show();
-                remindersList.add(title);
+                String reminder = title + " " + formatDateDMY(selectedDate) + " " + formateTime(selectedDate);
+                remindersList.add(reminder);
                 runOnUiThread(() -> remindersAdapter.notifyDataSetChanged());
             }
 //            if (remindersList == null){
@@ -136,6 +140,14 @@ public class CalendarActivity extends AppCompatActivity {
     private String formatDate(long millis) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         return sdf.format(new Date(millis));
+    }
+    private String formatDateDMY(Calendar calendar){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM", Locale.getDefault());
+        return simpleDateFormat.format(calendar.getTime());
+    }
+    private String formateTime(Calendar calendar){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        return simpleDateFormat.format(calendar.getTime());
     }
 }
 
