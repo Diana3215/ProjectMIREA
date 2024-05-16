@@ -94,14 +94,6 @@
         tools:layout_editor_absoluteX="-3dp">
 
 
-        <CheckBox
-            android:id="@+id/checkbox_task"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/Задача" />
-
         <EditText
             android:id="@+id/edit_text_task"
             android:layout_width="323dp"
@@ -114,8 +106,13 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="310dp" />
+            android:layout_width="383dp"
+            android:layout_height="466dp" />
+        <CheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Checkbox" />
 
     </LinearLayout>
 

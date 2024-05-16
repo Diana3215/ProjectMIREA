@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "419646050600",
+    "firebase_url": "https://projectmirea-777-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "projectmirea-777",
+    "storage_bucket": "projectmirea-777.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:419646050600:android:d6074198fcfa798341c01d",
+        "android_client_info": {
+          "package_name": "com.example.projectmirea"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMji4MwZehfn7DN7Ni-ZBCGTRSN_S_9UU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

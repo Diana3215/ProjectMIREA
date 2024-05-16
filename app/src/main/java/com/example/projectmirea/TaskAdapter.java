@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -41,9 +42,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 
     static class TaskViewHolder extends RecyclerView.ViewHolder {
         TextView taskTextView;
+        CheckBox checkBoxTask;
 
         TaskViewHolder(@NonNull View itemView) {
             super(itemView);
+            checkBoxTask = itemView.findViewById(R.id.checkbox);
             taskTextView = itemView.findViewById(R.id.task_text_view);
         }
     }

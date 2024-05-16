@@ -65,6 +65,14 @@ public class ReminderCalendarSQL extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery("SELECT * FROM reminders", null);
     }
+    public int deleteReminderByTitle(String title) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String whereClause = "title = ?";
+        String[] whereArgs = {title};
+        int deletedRows = db.delete("reminders", whereClause, whereArgs);
+        db.close();
+        return deletedRows;
+    }
 
 
 }

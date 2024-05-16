@@ -7,4 +7,5 @@
     <string name="top_bar">TODO</string>
     <string name="Задача">Задача выполнена</string>
     <string name="Task">Введите задачу</string>
+    <string name="button">Button</string>
 </resources>

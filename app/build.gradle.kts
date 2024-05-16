@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.androidApplication)
+    id("com.google.gms.google-services") version "4.4.1" apply false
 }
 
 android {
@@ -32,7 +33,16 @@ android {
 }
 
 dependencies {
+    implementation(libs.play.services.tasks)
+    implementation(libs.firebase.firestore)
+    // Firebase BoM (Bill of Materials)
+    platform("com.google.firebase:firebase-bom:32.0.0")
 
+    // Firebase Firestore dependency
+    implementation("com.google.firebase:firebase-firestore-ktx:25.0.0")
+
+
+    // Additional dependencies
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
