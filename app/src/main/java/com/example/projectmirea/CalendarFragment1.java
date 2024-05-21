@@ -1,6 +1,5 @@
 package com.example.projectmirea;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -8,7 +7,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -19,13 +20,12 @@ import android.widget.ListView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.firestore.EventListener;
@@ -43,43 +43,62 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-public class CalendarActivity extends AppCompatActivity {
-    // Переменные
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link CalendarFragment1#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class CalendarFragment1 extends Fragment {
+
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private FirebaseFirestore db;
     private EditText titleET;
-
     private CalendarView calendarView;
     private ArrayAdapter<String> remindersAdapter;
     private ArrayList<String> remindersList;
 
+    public CalendarFragment1() {
+        // Required empty public constructor
+    }
 
-    @SuppressLint({"MissingInflatedId", "WrongViewCast"})
+    public static CalendarFragment1 newInstance(String param1, String param2) {
+        CalendarFragment1 fragment = new CalendarFragment1();
+        Bundle args = new Bundle();
+        return fragment;
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.calendar);
 
-        calendarView = findViewById(R.id.calendarView);
-        titleET = findViewById(R.id.titleEditText);
-        Button saveButton = findViewById(R.id.savebutton);
-        Button taskButton = findViewById(R.id.taskbutton);
-        Button profileButton = findViewById(R.id.profilebutton);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.calendar, container, false);
+
+        calendarView = view.findViewById(R.id.calendarView);
+        titleET = view.findViewById(R.id.titleEditText);
+        Button saveButton = view.findViewById(R.id.savebutton);
+        Button taskButton = view.findViewById(R.id.taskbutton);
+        Button profileButton = view.findViewById(R.id.profilebutton);
 
         remindersList = new ArrayList<>();
-        remindersAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, remindersList);
-        ListView remindersLV = findViewById(R.id.reminderList);
+        remindersAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, remindersList);
+        ListView remindersLV = view.findViewById(R.id.reminderList);
         remindersLV.setAdapter(remindersAdapter);
-
 
         db = FirestoreHelper.getInstance();
 
-
         ListenerRegistration listenerRegistration = db.collection("reminders").addSnapshotListener(new EventListener<QuerySnapshot>() {
+
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 if (error != null) {
-                    Log.d("CalendarActivity", "Ошибка получения данных: ", error);
+                    Log.d("CalendarFragment2", "Ошибка получения данных: ", error);
                     return;
                 }
                 remindersList.clear();
@@ -99,25 +118,27 @@ public class CalendarActivity extends AppCompatActivity {
                 showDateTimePickerDialog();
             }
         });
+
         taskButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CalendarActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
-        profileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CalendarActivity.this, ProfileActivity.class);
+                Intent intent = new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
             }
         });
 
+//        profileButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getActivity(), ProfileActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+
         remindersLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(CalendarActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setTitle("Удалить запись");
                 builder.setMessage("Вы уверены, что хотите удалить запись?");
 
@@ -137,9 +158,9 @@ public class CalendarActivity extends AppCompatActivity {
                                             }
                                             remindersList.remove(position);
                                             remindersAdapter.notifyDataSetChanged();
-                                            Toast.makeText(CalendarActivity.this, "Запись удалена", Toast.LENGTH_LONG).show();
+                                            Toast.makeText(getContext(), "Запись удалена", Toast.LENGTH_LONG).show();
                                         } else {
-                                            Toast.makeText(CalendarActivity.this, "Ошибка при удалении записи", Toast.LENGTH_LONG).show();
+                                            Toast.makeText(getContext(), "Ошибка при удалении записи", Toast.LENGTH_LONG).show();
                                         }
                                     }
                                 });
@@ -155,11 +176,13 @@ public class CalendarActivity extends AppCompatActivity {
             }
         });
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(view.findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.findViewById(R.id.reminderList).setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        return view;
     }
 
     private void showDateTimePickerDialog() {
@@ -168,7 +191,7 @@ public class CalendarActivity extends AppCompatActivity {
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 Calendar selectedDate = Calendar.getInstance();
@@ -182,7 +205,7 @@ public class CalendarActivity extends AppCompatActivity {
     private void showTimePickerDialog(final Calendar selectedDate) {
         int hour = selectedDate.get(Calendar.HOUR_OF_DAY);
         int minute = selectedDate.get(Calendar.MINUTE);
-        TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+        TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 selectedDate.set(Calendar.HOUR_OF_DAY, hourOfDay);
@@ -204,12 +227,12 @@ public class CalendarActivity extends AppCompatActivity {
             db.collection("reminders")
                     .add(reminder)
                     .addOnSuccessListener(documentReference -> {
-                        Toast.makeText(CalendarActivity.this, "Напоминание сохранено", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Напоминание сохранено", Toast.LENGTH_SHORT).show();
                         titleET.setText("");
                     })
-                    .addOnFailureListener(e -> Toast.makeText(CalendarActivity.this, "Ошибка при сохранении напоминания", Toast.LENGTH_SHORT).show());
+                    .addOnFailureListener(e -> Toast.makeText(getContext(), "Ошибка при сохранении напоминания", Toast.LENGTH_SHORT).show());
         } else {
-            Toast.makeText(CalendarActivity.this, "Введите заголовок", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Введите заголовок", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -227,4 +250,5 @@ public class CalendarActivity extends AppCompatActivity {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
         return simpleDateFormat.format(calendar.getTime());
     }
+
 }

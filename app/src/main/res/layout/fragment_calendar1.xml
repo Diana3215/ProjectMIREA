@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CalendarFragment1">
+
+    <CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="wrap_content"
+        android:layout_height="292dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginLeft="20dp"/>
+
+    <EditText
+        android:id="@+id/titleEditText"
+        android:layout_width="263dp"
+        android:layout_height="68dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="330dp"
+
+        android:ems="10"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:text="Name" />
+
+    <Button
+        android:id="@+id/savebutton"
+        android:layout_width="103dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="280dp"
+        android:layout_marginTop="340dp"
+        android:layout_marginEnd="40dp"
+        android:text="Button" />
+
+    <ListView
+        android:id="@+id/reminderList"
+        android:layout_width="325dp"
+        android:layout_height="275dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="400dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="690dp"
+        tools:ignore="TextSizeCheck">
+
+        <Button
+            android:id="@+id/calendarbut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Button"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <Button
+            android:id="@+id/taskbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Button"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <Button
+            android:id="@+id/profilebutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Button"
+            tools:ignore="TouchTargetSizeCheck" />
+    </LinearLayout>
+</FrameLayout>
+

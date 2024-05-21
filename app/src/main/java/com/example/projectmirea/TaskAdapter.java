@@ -15,11 +15,13 @@ import java.util.List;
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder>{
 
 
-    private List<Task> taskList;
+    private List<TaskReminder> taskReminderList;
     private Context context;
+    private int checkedPosition = RecyclerView.NO_POSITION;
 
-    public TaskAdapter(List<Task> taskList, Context context){
-        this.taskList = taskList;
+
+    public TaskAdapter(List<TaskReminder> taskReminderList, Context context){
+        this.taskReminderList = taskReminderList;
         this.context = context;
     }
     @NonNull
@@ -31,13 +33,25 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
-        Task task = taskList.get(position);
-        holder.taskTextView.setText(task.getName());
+        TaskReminder taskReminder = taskReminderList.get(position);
+        holder.taskTextView.setText(taskReminder.getName());
+
+        // Устанавливаем состояние чекбокса на основе позиции элемента
+        holder.checkBoxTask.setChecked(position == checkedPosition);
+
+        // Устанавливаем слушатель изменения состояния чекбокса
+        holder.checkBoxTask.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                // Сохраняем позицию выбранного элемента
+                checkedPosition = holder.getAdapterPosition();
+            }
+        });
     }
+
 
     @Override
     public int getItemCount() {
-        return taskList.size();
+        return taskReminderList.size();
     }
 
     static class TaskViewHolder extends RecyclerView.ViewHolder {
@@ -50,6 +64,19 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
             taskTextView = itemView.findViewById(R.id.task_text_view);
         }
     }
+    public int getCheckedPosition() {
+        return checkedPosition;
+    }
+
+    public String getTaskItemId(int position) {
+        if (position != RecyclerView.NO_POSITION) {
+            TaskReminder task = taskReminderList.get(position);
+            return task.getId();
+        } else {
+            return null;
+        }
+    }
+
 
 }
 

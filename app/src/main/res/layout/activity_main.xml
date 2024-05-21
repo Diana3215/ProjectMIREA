@@ -7,6 +7,25 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <FrameLayout
+        android:id="@+id/framelayout"
+        android:layout_width="392dp"
+        android:layout_height="733dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </FrameLayout>
+    <FrameLayout
+        android:id="@+id/framelayout_calendar"
+        android:layout_width="392dp"
+        android:layout_height="733dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </FrameLayout>
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="391dp"
@@ -54,66 +73,9 @@
             tools:srcCompat="@drawable/android_contact_icon_icons_com_50531" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/taskbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:clickable="true"
-        android:contentDescription="@string/floatingactionbar"
-        android:focusable="true"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.952"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="DuplicateSpeakableTextCheck" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="395dp"
-        android:layout_height="65dp"
-        android:contentDescription="@string/top_bar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/rectangle_2"
-        tools:ignore="ImageContrastCheck" />
-
-    <LinearLayout
-        android:id="@+id/linertask"
-        android:layout_width="393dp"
-        android:layout_height="557dp"
-        android:orientation="vertical"
-        android:layout_marginTop="70dp"
-        android:layout_marginBottom="240dp"
-        app:layout_constraintBottom_toTopOf="@+id/taskbutton"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        app:layout_constraintVertical_bias="0.224"
-        tools:ignore="MissingConstraints,VisualLintBounds"
-        tools:layout_editor_absoluteX="-3dp">
 
 
-        <EditText
-            android:id="@+id/edit_text_task"
-            android:layout_width="323dp"
-            android:layout_height="70dp"
-            android:layout_margin="11dp"
-            android:hint="@string/Task"
-            android:textColorHint="#78909C"
-            android:autofillHints=""
-             />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
-            android:layout_width="383dp"
-            android:layout_height="466dp" />
-        <CheckBox
-            android:id="@+id/checkbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Checkbox" />
 
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
