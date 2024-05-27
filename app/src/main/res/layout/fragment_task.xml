@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TaskFragment">
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/todo"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:layout_marginTop="80dp" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/inprocess"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_marginTop="270dp" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/done"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_marginTop="490dp" />
+
+    <EditText
+        android:id="@+id/editTextText"
+        style="@style/CustomEditTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:autoText="false"
+        android:ems="10"
+        android:fontFamily="@font/abril_fatface"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:text="Task" />
+
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="132dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="247dp"
+        android:layout_marginTop="15dp"
+
+        android:backgroundTint="#000000"
+
+        android:text="Create"
+        app:strokeColor="#FFFFFF" />
+
+
+    <CheckBox
+        android:id="@+id/checkBox1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="1000dp"
+        android:text="Задание выполнено" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="210dp"
+        android:layout_marginStart="150dp"
+        android:src="@drawable/doing_off" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="430dp"
+        android:layout_marginStart="150dp"
+        android:src="@drawable/done" />
+
+
+
+
+
+</FrameLayout>

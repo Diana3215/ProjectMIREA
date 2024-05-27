@@ -1,11 +1,7 @@
 package com.example.projectmirea;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
@@ -13,23 +9,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
 
-    // ПЕРЕМЕННЫЕ
-
-
-    private TaskAdapter adapter;
-    private List<Task> taskList;
-    private EditText editTextTask;
     public ImageView calendar;
-    public  ImageView profile;
-    private CheckBox checkBox;
+    public  ImageView menu;
+
+    public MainActivity() {
+    }
 
     @SuppressLint({"MissingInflatedId", "WrongViewCast", "NotifyDataSetChanged"})
     @Override
@@ -44,73 +35,32 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        //АЙДИШНИКИ
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        Button addButton = findViewById(R.id.taskbutton);
-        editTextTask = findViewById(R.id.edit_text_task);
         calendar = findViewById(R.id.calendar);
-        profile = findViewById(R.id.profile);
-        ProfilePoints UserProfile = new ProfilePoints();
-        CheckBox checkBox = findViewById(R.id.checkbox);
+        menu = findViewById(R.id.menu);
+        CalendarFragment1 calendarFragment1 = new CalendarFragment1();
+        TaskFragment taskFragment = new TaskFragment();
+
+        FirebaseFirestore db = ReminderFirestoreHelper.getInstance();
 
 
+        if (savedInstanceState == null) {
+            setNewFragment(taskFragment);
+        }
 
-
-        // создание списка с задачами
-        taskList = new ArrayList<>();
-        // Создание и установка адаптера
-        adapter = new TaskAdapter(taskList, this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
-
-
-        addButton.setOnClickListener(v -> {
-            String taskText = editTextTask.getText().toString();
-            if(!taskText.isEmpty()){
-                Task newTask = new Task(taskText);
-                taskList.add(newTask);
-                adapter.notifyDataSetChanged();
-                editTextTask.setText("");
-            }
-            Task newTask = new Task("Новая задача");
-            taskList.add(newTask);
-            adapter.notifyDataSetChanged();
-        });
-
-        checkBox.setOnClickListener(v -> {
-            if (checkBox.isChecked()) {
-                UserProfile.addPoints(1);
-                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
-                intent.putExtra("progress", UserProfile.getPoints());
-                startActivity(intent);
-
-            }
-        });
-
-
-
-        calendar.setOnClickListener(v -> {
-            Intent intentCalendar = new Intent(MainActivity.this, CalendarActivity.class);
-            startActivity(intentCalendar);
-        });
-        profile.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
-            startActivity(intent);
-        });
+        calendar.setOnClickListener(v -> setNewFragment(calendarFragment1));
+        menu.setOnClickListener(v -> setNewFragment(taskFragment));
 
 
     }
 
+    private void setNewFragment(Fragment fragment) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.framelayout, fragment);
+        ft.addToBackStack(null);
+        ft.commit();
+
     }
-class ProfilePoints{
-    public int points;
-    public ProfilePoints(){
-        this.points = 0;
-    }
-    public int getPoints(){
-        return points;
-    }
-    public void addPoints(int pointsToAdd){
-        points += pointsToAdd;
-    }
+
 }
+
+

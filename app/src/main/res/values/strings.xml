@@ -8,4 +8,9 @@
     <string name="Задача">Задача выполнена</string>
     <string name="Task">Введите задачу</string>
     <string name="button">Button</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="procces">PROCCES</string>
+    <string name="done">DONE</string>
+    <string name="add_habit">add_habit</string>
 </resources>

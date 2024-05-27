@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CalendarFragment1">
+
+    <CalendarView
+        android:id="@+id/calendarView"
+        style="@android:style/Widget.CalendarView"
+        android:layout_width="360dp"
+        android:layout_height="303dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
+        android:background="#F4F0F0"
+        android:dateTextAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:focusedMonthDateColor="#000000"
+        android:selectedDateVerticalBar="@drawable/et_background"
+        android:selectedWeekBackgroundColor="#40FFCC00"
+        android:showWeekNumber="false"
+        android:unfocusedMonthDateColor="#ffa812"
+        android:weekDayTextAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+    <EditText
+        android:id="@+id/titleEditText"
+        style="@style/CustomEditTextStyle"
+        android:layout_width="258dp"
+        android:layout_height="68dp"
+        android:layout_marginStart="15dp"
+
+        android:layout_marginTop="340dp"
+        android:ems="10"
+        android:fontFamily="@font/abril_fatface"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:text="Name" />
+
+    <Button
+        android:id="@+id/savebutton"
+        android:layout_width="103dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="277dp"
+        android:layout_marginTop="350dp"
+        android:layout_marginEnd="40dp"
+        android:backgroundTint="#000000"
+        android:fontFamily="sans-serif"
+        android:text="Create" />
+
+    <ListView
+        android:id="@+id/reminderList"
+        android:layout_width="361dp"
+        android:layout_height="195dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="420dp"
+        android:background="#F3EFEF" />
+
+</FrameLayout>
+
