@@ -1,11 +1,17 @@
 package com.example.projectmirea;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,9 +28,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -43,15 +47,9 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CalendarFragment1#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class CalendarFragment1 extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
     private FirebaseFirestore db;
     private EditText titleET;
     private CalendarView calendarView;
@@ -59,7 +57,6 @@ public class CalendarFragment1 extends Fragment {
     private ArrayList<String> remindersList;
 
     public CalendarFragment1() {
-        // Required empty public constructor
     }
 
     public static CalendarFragment1 newInstance(String param1, String param2) {
@@ -78,13 +75,12 @@ public class CalendarFragment1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.calendar, container, false);
+        View view = inflater.inflate(R.layout.fragment_calendar1, container, false);
 
         calendarView = view.findViewById(R.id.calendarView);
         titleET = view.findViewById(R.id.titleEditText);
         Button saveButton = view.findViewById(R.id.savebutton);
-        Button taskButton = view.findViewById(R.id.taskbutton);
-        Button profileButton = view.findViewById(R.id.profilebutton);
+
 
         remindersList = new ArrayList<>();
         remindersAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, remindersList);
@@ -119,21 +115,8 @@ public class CalendarFragment1 extends Fragment {
             }
         });
 
-        taskButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
-            }
-        });
 
-//        profileButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(), ProfileActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+
 
         remindersLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -176,12 +159,6 @@ public class CalendarFragment1 extends Fragment {
             }
         });
 
-        ViewCompat.setOnApplyWindowInsetsListener(view.findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.findViewById(R.id.reminderList).setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-
         return view;
     }
 
@@ -206,6 +183,7 @@ public class CalendarFragment1 extends Fragment {
         int hour = selectedDate.get(Calendar.HOUR_OF_DAY);
         int minute = selectedDate.get(Calendar.MINUTE);
         TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
+            @RequiresApi(api = Build.VERSION_CODES.S)
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 selectedDate.set(Calendar.HOUR_OF_DAY, hourOfDay);
@@ -216,6 +194,7 @@ public class CalendarFragment1 extends Fragment {
         timePickerDialog.show();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.S)
     private void saveReminder(Calendar selectedDate) {
         String title = titleET.getText().toString();
         if (!title.isEmpty()) {
@@ -229,11 +208,48 @@ public class CalendarFragment1 extends Fragment {
                     .addOnSuccessListener(documentReference -> {
                         Toast.makeText(getContext(), "Напоминание сохранено", Toast.LENGTH_SHORT).show();
                         titleET.setText("");
+                        scheduleNotification(selectedDate, title);
                     })
                     .addOnFailureListener(e -> Toast.makeText(getContext(), "Ошибка при сохранении напоминания", Toast.LENGTH_SHORT).show());
         } else {
             Toast.makeText(getContext(), "Введите заголовок", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.S)
+    private void scheduleNotification(Calendar selectedDate, String title) {
+        Intent intent = new Intent(getContext(), ReminderReceiver.class);
+        intent.putExtra("title", "Reminder");
+        intent.putExtra("message", title);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                getContext(),
+                0,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
+
+        AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+        if (alarmManager != null) {
+            // Проверяем, можем ли мы использовать точные будильники
+            if (alarmManager.canScheduleExactAlarms()) {
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, selectedDate.getTimeInMillis(), pendingIntent);
+            } else {
+                // Обрабатываем случай, когда доступ к точным будильникам не разрешен
+                handleNoExactAlarmPermission();
+            }
+        }
+    }
+
+    private void handleNoExactAlarmPermission() {
+        Toast.makeText(getContext(), "Доступ к уведомлениям запрещен. Перейдите в настройки", Toast.LENGTH_LONG).show();
+    }
+
+    private void requestScheduleExactAlarmPermission() {
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        Uri uri = Uri.fromParts("package", requireActivity().getPackageName(), null);
+        intent.setData(uri);
+        startActivity(intent);
     }
 
     private String formatDate(long millis) {

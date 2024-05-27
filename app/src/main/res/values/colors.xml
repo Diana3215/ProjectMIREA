@@ -2,4 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="task">#828282</color>
+    <color name="todo">#ffba00</color>
+    <color name="done">#cc5500</color>
 </resources>

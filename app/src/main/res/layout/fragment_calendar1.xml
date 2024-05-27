@@ -7,19 +7,30 @@
 
     <CalendarView
         android:id="@+id/calendarView"
-        android:layout_width="wrap_content"
-        android:layout_height="292dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginLeft="20dp"/>
+        style="@android:style/Widget.CalendarView"
+        android:layout_width="360dp"
+        android:layout_height="303dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
+        android:background="#F4F0F0"
+        android:dateTextAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:focusedMonthDateColor="#000000"
+        android:selectedDateVerticalBar="@drawable/et_background"
+        android:selectedWeekBackgroundColor="#40FFCC00"
+        android:showWeekNumber="false"
+        android:unfocusedMonthDateColor="#ffa812"
+        android:weekDayTextAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <EditText
         android:id="@+id/titleEditText"
-        android:layout_width="263dp"
+        style="@style/CustomEditTextStyle"
+        android:layout_width="258dp"
         android:layout_height="68dp"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="330dp"
+        android:layout_marginStart="15dp"
 
+        android:layout_marginTop="340dp"
         android:ems="10"
+        android:fontFamily="@font/abril_fatface"
         android:inputType="text"
         android:minHeight="48dp"
         android:text="Name" />
@@ -28,48 +39,20 @@
         android:id="@+id/savebutton"
         android:layout_width="103dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="280dp"
-        android:layout_marginTop="340dp"
+        android:layout_marginStart="277dp"
+        android:layout_marginTop="350dp"
         android:layout_marginEnd="40dp"
-        android:text="Button" />
+        android:backgroundTint="#000000"
+        android:fontFamily="sans-serif"
+        android:text="Create" />
 
     <ListView
         android:id="@+id/reminderList"
-        android:layout_width="325dp"
-        android:layout_height="275dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="400dp" />
+        android:layout_width="361dp"
+        android:layout_height="195dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="420dp"
+        android:background="#F3EFEF" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="690dp"
-        tools:ignore="TextSizeCheck">
-
-        <Button
-            android:id="@+id/calendarbut"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Button"
-            tools:ignore="TouchTargetSizeCheck" />
-
-        <Button
-            android:id="@+id/taskbutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Button"
-            tools:ignore="TouchTargetSizeCheck" />
-
-        <Button
-            android:id="@+id/profilebutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Button"
-            tools:ignore="TouchTargetSizeCheck" />
-    </LinearLayout>
 </FrameLayout>
 

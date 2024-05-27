@@ -16,10 +16,11 @@
         app:layout_constraintTop_toTopOf="parent">
 
     </FrameLayout>
+
     <FrameLayout
         android:id="@+id/framelayout_calendar"
-        android:layout_width="392dp"
-        android:layout_height="733dp"
+        android:layout_width="389dp"
+        android:layout_height="781dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -30,9 +31,9 @@
         android:id="@+id/linearLayout"
         android:layout_width="391dp"
         android:layout_height="77dp"
-        android:layout_marginTop="729dp"
+        android:layout_marginTop="720dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/framelayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.979"
@@ -46,31 +47,23 @@
             android:layout_weight="1"
             android:contentDescription="@string/calendar"
             android:visibility="visible"
-            app:srcCompat="@drawable/android_contact_icon_icons_1"
-            tools:srcCompat="@drawable/android_contact_icon_icons_1"
+            app:srcCompat="@drawable/planning_calendar_icon_262702"
+            tools:srcCompat="@drawable/planning_calendar_icon_262702"
             tools:visibility="visible" />
 
         <ImageView
             android:id="@+id/menu"
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
+            android:layout_width="117dp"
+            android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:contentDescription="@string/menu"
             android:visibility="visible"
-            app:srcCompat="@drawable/radiant_game_android_6960"
-            tools:srcCompat="@drawable/radiant_game_android_6960" />
+            app:srcCompat="@drawable/planning_todo_list_tasks_clipboard_icon_262700__1_"
+            tools:srcCompat="@drawable/planning_todo_list_tasks_clipboard_icon_262700__1_"
+            tools:visibility="visible" />
 
-        <ImageView
-            android:id="@+id/profile"
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:contentDescription="@string/profile"
-            android:visibility="visible"
-            app:srcCompat="@drawable/android_contact_icon_icons_com_50531"
-            tools:srcCompat="@drawable/android_contact_icon_icons_com_50531" />
     </LinearLayout>
 
 

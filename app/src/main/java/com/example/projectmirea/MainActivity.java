@@ -16,11 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
 
-    // ПЕРЕМЕННЫЕ
-
-    private TaskAdapter adapter;
     public ImageView calendar;
-    public  ImageView profile;
     public  ImageView menu;
 
     public MainActivity() {
@@ -39,11 +35,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        //АЙДИШНИКИ
         calendar = findViewById(R.id.calendar);
-        profile = findViewById(R.id.profile);
         menu = findViewById(R.id.menu);
-        ProfilePoints UserProfile = new ProfilePoints();
         CalendarFragment1 calendarFragment1 = new CalendarFragment1();
         TaskFragment taskFragment = new TaskFragment();
 
@@ -70,15 +63,4 @@ public class MainActivity extends AppCompatActivity {
 
 }
 
-class ProfilePoints{
-    public int points;
-    public ProfilePoints(){
-        this.points = 0;
-    }
-    public int getPoints(){
-        return points;
-    }
-    public void addPoints(int pointsToAdd){
-        points += pointsToAdd;
-    }
-}
+
