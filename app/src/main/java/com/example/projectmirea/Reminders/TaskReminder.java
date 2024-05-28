@@ -1,4 +1,4 @@
-package com.example.projectmirea;
+package com.example.projectmirea.Reminders;
 
 public class TaskReminder {
     private String status;

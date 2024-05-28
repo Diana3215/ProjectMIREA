@@ -1,4 +1,4 @@
-package com.example.projectmirea;
+package com.example.projectmirea.Activity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -12,6 +12,10 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.projectmirea.DatabaseHelpers.ReminderFirestoreHelper;
+import com.example.projectmirea.Fragments.CalendarFragment1;
+import com.example.projectmirea.Fragments.TaskFragment;
+import com.example.projectmirea.R;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {

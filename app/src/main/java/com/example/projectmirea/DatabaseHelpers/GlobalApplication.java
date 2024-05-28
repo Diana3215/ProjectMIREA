@@ -1,4 +1,4 @@
-package com.example.projectmirea;
+package com.example.projectmirea.DatabaseHelpers;
 
 import android.app.Application;
 import com.google.firebase.FirebaseApp;

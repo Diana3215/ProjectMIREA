@@ -1,4 +1,4 @@
-package com.example.projectmirea;
+package com.example.projectmirea.DatabaseHelpers;
 
 
 import android.annotation.SuppressLint;

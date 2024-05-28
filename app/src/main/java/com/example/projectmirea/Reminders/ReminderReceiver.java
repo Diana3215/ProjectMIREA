@@ -1,4 +1,4 @@
-package com.example.projectmirea;
+package com.example.projectmirea.Reminders;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 
 import androidx.core.app.NotificationCompat;
+
+import com.example.projectmirea.R;
 
 public class ReminderReceiver extends BroadcastReceiver {
     private static final String CHANNEL_ID = "REMINDER_CHANNEL";

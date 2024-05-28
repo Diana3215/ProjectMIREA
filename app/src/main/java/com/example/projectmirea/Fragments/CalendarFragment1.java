@@ -1,4 +1,4 @@
-package com.example.projectmirea;
+package com.example.projectmirea.Fragments;
 
 import android.app.AlarmManager;
 import android.app.AlertDialog;
@@ -31,6 +31,9 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
+import com.example.projectmirea.DatabaseHelpers.FirestoreHelper;
+import com.example.projectmirea.R;
+import com.example.projectmirea.Reminders.ReminderReceiver;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;

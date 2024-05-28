@@ -1,4 +1,4 @@
-package com.example.projectmirea;
+package com.example.projectmirea.Adapter;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.projectmirea.R;
+import com.example.projectmirea.Reminders.TaskReminder;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
